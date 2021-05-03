@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - export STAMP="1.0-`date +%Y%m%d.%H%M%S`"
+      - export CODEARTIFACT_AUTH_TOKEN=`aws --region eu-west-1 codeartifact get-authorization-token --domain development --domain-owner 889199313043 --query authorizationToken --output text`
+  build:
+    commands:
+      - mvn --no-transfer-progress versions:set -DnewVersion=$STAMP
+      - mvn --no-transfer-progress -s settings.xml clean package deploy
+artifacts:
+  files:
+    - target/cidrlambda-$STAMP.jar
+  name: cidrlambda-$STAMP.jar
