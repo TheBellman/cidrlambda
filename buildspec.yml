@@ -12,7 +12,9 @@ phases:
     commands:
       - mvn --no-transfer-progress versions:set -DnewVersion=$STAMP
       - mvn --no-transfer-progress -s settings.xml clean package deploy
+  post_build:
+      - mv target/cidrlambda-$STAMP.jar cidrlambda-$STAMP.jar
 artifacts:
   files:
-    - target/cidrlambda-$STAMP.jar
+    - cidrlambda-$STAMP.jar
   name: cidrlambda-$STAMP.jar
