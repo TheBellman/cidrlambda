@@ -15,7 +15,7 @@ public final class Util {
         logger.log("CONTEXT: " + gson.toJson(context));
 
         // log event details
-//        logger.log("EVENT: " + gson.toJson(event));
+        logger.log("EVENT: " + gson.toJson(event));
 //        logger.log("EVENT TYPE: " + event.getClass().toString());
 
         logger.log("RAW PATH: " + event.getRawPath());
