@@ -18,9 +18,8 @@ public final class Util {
         logger.log("EVENT: " + gson.toJson(event));
 //        logger.log("EVENT TYPE: " + event.getClass().toString());
 
-        logger.log("RAW PATH: " + event.getRawPath());
-        logger.log("RAW QUERY STRING: " + event.getRawQueryString());
-        logger.log("ROUTE KEY: " + event.getRouteKey());
-        logger.log("VERSION: " + event.getVersion());
+        logger.log("RAW PATH: " + event.getPathParameters());
+        logger.log("RAW QUERY STRING: " + event.getQueryStringParameters());
+        logger.log("BODY: " + event.getBody());
     }
 }
