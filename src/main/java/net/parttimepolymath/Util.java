@@ -11,15 +11,15 @@ public final class Util {
         LambdaLogger logger = context.getLogger();
 
         // log execution details
-//        logger.log("ENVIRONMENT VARIABLES: " + gson.toJson(System.getenv()));
+        logger.log("ENVIRONMENT VARIABLES: " + gson.toJson(System.getenv()));
         logger.log("CONTEXT: " + gson.toJson(context));
 
         // log event details
         logger.log("EVENT: " + gson.toJson(event));
-//        logger.log("EVENT TYPE: " + event.getClass().toString());
+        logger.log("EVENT TYPE: " + event.getClass().toString());
 
-        logger.log("RAW PATH: " + event.getPathParameters());
-        logger.log("RAW QUERY STRING: " + event.getQueryStringParameters());
+        logger.log("PATH: " + event.getPathParameters());
+        logger.log("QUERY STRING: " + event.getQueryStringParameters());
         logger.log("BODY: " + event.getBody());
     }
 }
