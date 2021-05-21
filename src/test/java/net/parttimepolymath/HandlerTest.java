@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+
 /**
  * Unit test for simple Handler
  */
@@ -18,7 +20,10 @@ public class HandlerTest {
     @Test
     public void testHandler() {
         logger.info("testHandler()");
-        APIGatewayV2HTTPEvent event = APIGatewayV2HTTPEvent.builder().build();
+        APIGatewayV2HTTPEvent event = APIGatewayV2HTTPEvent.builder()
+                .withRawPath("/v1/cidr/eu-west-2/S3")
+                .withQueryStringParameters(Collections.singletonMap("ipv6", "true"))
+                .build();
         Context context = new TestContext();
         String requestId = context.getAwsRequestId();
         Handler handler = new Handler();
