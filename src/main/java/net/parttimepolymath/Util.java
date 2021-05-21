@@ -18,8 +18,8 @@ public final class Util {
         logger.log("EVENT: " + gson.toJson(event));
         logger.log("EVENT TYPE: " + event.getClass().toString());
 
-        logger.log("PATH: " + event.getPathParameters());
-        logger.log("QUERY STRING: " + event.getQueryStringParameters());
+        logger.log("PATH: " + event.getRawPath());
+        logger.log("QUERY STRING: " + event.getRawQueryString());
         logger.log("BODY: " + event.getBody());
     }
 }
