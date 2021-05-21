@@ -29,6 +29,7 @@ public class HandlerTest {
         Handler handler = new Handler();
         APIGatewayV2HTTPResponse result = handler.handleRequest(event, context);
         assertEquals(200, result.getStatusCode());
-    }
+        assertFalse(result.getBody().isEmpty());
+    };
 
 }
