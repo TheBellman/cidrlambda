@@ -60,6 +60,8 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
         ParsedEvent parsedEvent = new ParsedEvent(event);
         context.getLogger().log(parsedEvent.toString());
 
+        context.getLogger().log(event.getPathParameters().toString());
+
         Ranges ranges = getRanges(context);
         if (ranges == null) {
             return errorResponse();
@@ -82,6 +84,11 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
             }
         }
 
+        /*
+         * note <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html>
+         * indicates we could just return a simple JSON string from this method, and the API gateway will wrap it,
+         * but the APIGatewayV2HTTPResponse is a clear and unambiguous way of managing output so may as well use it.
+         */
         APIGatewayV2HTTPResponse response = APIGatewayV2HTTPResponse.builder()
                 .withStatusCode(200)
                 .withHeaders(Map.of("Content-Type","application/json"))

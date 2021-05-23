@@ -32,6 +32,7 @@ public final class ParsedEvent {
         regions = rawPath.equals(REGIONS);
         services = rawPath.equals(SERVICES);
 
+        // fix this to use pathParameters
         if (!regions && !services && rawPath.startsWith(CIDR)) {
             cidr = true;
             String[] fields = rawPath.replaceFirst(CIDR, "").split("/", 3);
