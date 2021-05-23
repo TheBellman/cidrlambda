@@ -6,14 +6,12 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.parttimepolymath.iplib.IPRange;
 import net.parttimepolymath.iplib.Ranges;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * API gateway handler.
@@ -22,29 +20,28 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 21/05/2021
  */
 public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
-    private final AtomicReference<Ranges> rangeHolder = new AtomicReference<Ranges>();
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * use a lazy singleton pattern to try to avoid building the IPRange() object repeatedly.
-     *
+     * TODO: fix this, it's still constructing every time of course
      * @param context the context of the lambda event.
      * @return an instance of Ranges if one could be built. May be null on error.
      */
     private Ranges getRanges(final Context context) {
         try {
-            rangeHolder.compareAndSet(null, new IPRange());
+            return RangeFactory.getRanges();
         } catch (IOException e) {
             context.getLogger().log("IOException creating IPRanges object: " + e.getMessage());
         } catch (InterruptedException e) {
             context.getLogger().log("InterruptedException creating IPRanges object: " + e.getMessage());
         }
 
-        return rangeHolder.get();
+        return null;
     }
 
     /**
-     * construct a 503 response to return.
+     * construct a 503 response to return.3
      *
      * @return a well formed APIGatewayV2HTTPResponse
      */
@@ -87,12 +84,11 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
          * indicates we could just return a simple JSON string from this method, and the API gateway will wrap it,
          * but the APIGatewayV2HTTPResponse is a clear and unambiguous way of managing output so may as well use it.
          */
-        APIGatewayV2HTTPResponse response = APIGatewayV2HTTPResponse.builder()
+
+        return APIGatewayV2HTTPResponse.builder()
                 .withStatusCode(200)
                 .withHeaders(Map.of("Content-Type","application/json"))
                 .withBody(gson.toJson(responseData))
                 .build();
-
-        return response;
     }
 }
