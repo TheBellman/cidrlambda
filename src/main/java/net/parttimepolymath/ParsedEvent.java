@@ -4,6 +4,8 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.Map;
+
 /**
  * This class is used to simplify understanding of the incoming event.
  * @author Robert
@@ -31,24 +33,12 @@ public final class ParsedEvent {
 
         regions = rawPath.equals(REGIONS);
         services = rawPath.equals(SERVICES);
+        cidr = rawPath.startsWith(CIDR);
 
-        // fix this to use pathParameters
-        if (!regions && !services && rawPath.startsWith(CIDR)) {
-            cidr = true;
-            String[] fields = rawPath.replaceFirst(CIDR, "").split("/", 3);
-            if (fields.length == 2) {
-                region = fields[1];
-                service = null;
-            } else if (fields.length == 3) {
-                region = fields[1];
-                // this allows us to ignore anything past the first 3 tokens
-                service = fields[2].split("/",2)[0];
-            } else {
-                region = null;
-                service = null;
-            }
+        if (event.getPathParameters() != null) {
+            region = event.getPathParameters().getOrDefault("region", null);
+            service = event.getPathParameters().getOrDefault("service", null);
         } else {
-            cidr = false;
             region = null;
             service = null;
         }

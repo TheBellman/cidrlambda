@@ -60,8 +60,6 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
         ParsedEvent parsedEvent = new ParsedEvent(event);
         context.getLogger().log(parsedEvent.toString());
 
-        context.getLogger().log(event.getPathParameters().toString());
-
         Ranges ranges = getRanges(context);
         if (ranges == null) {
             return errorResponse();

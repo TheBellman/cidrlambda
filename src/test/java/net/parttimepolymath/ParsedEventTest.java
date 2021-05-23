@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +18,7 @@ class ParsedEventTest {
     void setUp() {
         APIGatewayV2HTTPEvent event= APIGatewayV2HTTPEvent.builder()
                 .withRawPath("/v1/cidr/eu-west-2/S3")
+                .withPathParameters(Map.of("region", "eu-west-2", "service", "S3"))
                 .withQueryStringParameters(Collections.singletonMap("ipv6", "true"))
                 .build();
         instance = new ParsedEvent(event);
@@ -76,6 +78,7 @@ class ParsedEventTest {
 
         instance = new ParsedEvent(APIGatewayV2HTTPEvent.builder()
                 .withRawPath("/v1/cidr/eu-west-2")
+                .withPathParameters(Collections.singletonMap("region", "eu-west-2"))
                 .build());
         assertTrue(instance.isCidr());
         assertEquals("eu-west-2", instance.getRegion());
@@ -89,6 +92,7 @@ class ParsedEventTest {
         assertNull(instance. getService());
 
         instance = new ParsedEvent(APIGatewayV2HTTPEvent.builder()
+                .withPathParameters(Map.of("region", "eu-west-2", "service", "S3"))
                 .withRawPath("/v1/cidr/eu-west-2/S3/some/other/junk")
                 .build());
         assertTrue(instance.isCidr());
