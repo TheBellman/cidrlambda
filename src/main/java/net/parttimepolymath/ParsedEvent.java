@@ -1,16 +1,17 @@
 package net.parttimepolymath;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.Map;
-
 /**
  * This class is used to simplify understanding of the incoming event.
+ *
  * @author Robert
  * @since 21/05/2021
  */
+@Getter
 public final class ParsedEvent {
     private final static String REGIONS = "/v1/regions";
     private final static String SERVICES = "/v1/services";
@@ -22,6 +23,10 @@ public final class ParsedEvent {
     private final String region;
     private final String service;
 
+    /**
+     * Primary constructor.
+     * @param event the incoming event to construct this wrapper from.
+     */
     public ParsedEvent(final APIGatewayV2HTTPEvent event) {
         String rawPath = event.getRawPath().strip();
 
@@ -44,39 +49,11 @@ public final class ParsedEvent {
         }
     }
 
-    public boolean isIpv6() {
-        return ipv6;
-    }
-
-    public boolean isRegions() {
-        return regions;
-    }
-
-    public boolean isServices() {
-        return services;
-    }
-
-    public boolean isCidr() {
-        return cidr;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getService() {
-        return service;
-    }
-
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("ipv6", ipv6)
-                .append("regions", regions)
-                .append("services", services)
-                .append("cidr", cidr)
-                .append("region", region)
-                .append("service",service).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("ipv6", ipv6).append("regions",
+                regions).append("services", services).append("cidr", cidr).append("region", region).append("service",
+                service).toString();
     }
 
 }
