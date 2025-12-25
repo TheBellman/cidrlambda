@@ -5,14 +5,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Stolen from https://github.com/awsdocs/aws-lambda-developer-guide
+ * Stolen from <a href="https://github.com/awsdocs/aws-lambda-developer-guide">AWS Lambda Developer Guide</a>
  */
 public class TestLogger implements LambdaLogger {
     private static final Logger logger = LoggerFactory.getLogger(TestLogger.class);
-    public void log(String message){
+
+    public void log(String message) {
         logger.info(message);
     }
-    public void log(byte[] message){
+
+    public void log(byte[] message) {
         logger.info(new String(message));
     }
 }

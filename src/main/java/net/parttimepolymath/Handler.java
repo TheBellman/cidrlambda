@@ -20,11 +20,12 @@ import java.util.Map;
  * @since 21/05/2021
  */
 public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * use a lazy singleton pattern to try to avoid building the IPRange() object repeatedly.
      * TODO: fix this, it's still constructing every time of course
+     *
      * @param context the context of the lambda event.
      * @return an instance of Ranges if one could be built. May be null on error.
      */
@@ -46,10 +47,8 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
      * @return a well formed APIGatewayV2HTTPResponse
      */
     private APIGatewayV2HTTPResponse errorResponse() {
-        return APIGatewayV2HTTPResponse.builder()
-                .withStatusCode(503)
-                .withHeaders(Map.of("Content-Type", "application/json"))
-                .withBody("{}").build();
+        return APIGatewayV2HTTPResponse.builder().withStatusCode(503).withHeaders(Map.of("Content-Type", "application" +
+                "/json")).withBody("{}").build();
     }
 
     @Override
@@ -85,10 +84,7 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
          * but the APIGatewayV2HTTPResponse is a clear and unambiguous way of managing output so may as well use it.
          */
 
-        return APIGatewayV2HTTPResponse.builder()
-                .withStatusCode(200)
-                .withHeaders(Map.of("Content-Type","application/json"))
-                .withBody(gson.toJson(responseData))
-                .build();
+        return APIGatewayV2HTTPResponse.builder().withStatusCode(200).withHeaders(Map.of("Content-Type", "application" +
+                "/json")).withBody(gson.toJson(responseData)).build();
     }
 }

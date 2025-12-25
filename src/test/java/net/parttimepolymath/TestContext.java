@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 
 /**
- * Stolen from https://github.com/awsdocs/aws-lambda-developer-guide
+ * Stolen from <a href="https://github.com/awsdocs/aws-lambda-developer-guide">AWS Lambda Developer Guide</a>
  */
 public class TestContext implements Context {
     @Override

@@ -12,12 +12,12 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @ThreadSafe
 public class RangeFactory {
-    private static AtomicReference<Ranges> holder = new AtomicReference<Ranges>();
+    private static final AtomicReference<Ranges> holder = new AtomicReference<Ranges>();
 
     public static Ranges getRanges() throws IOException, InterruptedException {
         Ranges ranges = holder.get();
         if (ranges == null) {
-            ranges =  new IPRange();
+            ranges = new IPRange();
             holder.compareAndSet(null, ranges);
         }
         return ranges;
