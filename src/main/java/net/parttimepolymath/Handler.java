@@ -42,7 +42,7 @@ public class Handler implements RequestHandler<APIGatewayV2HTTPEvent, APIGateway
     }
 
     /**
-     * construct a 503 response to return.3
+     * construct a 503 response to return.
      *
      * @return a well formed APIGatewayV2HTTPResponse
      */
