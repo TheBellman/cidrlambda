@@ -6,7 +6,7 @@
     <name>cidrlambda</name>
     <groupId>net.parttimepolymath</groupId>
     <artifactId>cidrlambda</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <description>Simple Lambda to wrap around the iplib library and allow it to be delivered through API</description>
