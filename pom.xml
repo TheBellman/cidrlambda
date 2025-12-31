@@ -6,7 +6,7 @@
     <name>cidrlambda</name>
     <groupId>net.parttimepolymath</groupId>
     <artifactId>cidrlambda</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <packaging>jar</packaging>
 
     <description>Simple Lambda to wrap around the iplib library and allow it to be delivered through API</description>
@@ -18,7 +18,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <junit.version>5.13.4</junit.version>
-        <log4j2.version>2.20.0</log4j2.version>
+        <log4j2.version>2.25.3</log4j2.version>
         <lombok.version>1.18.42</lombok.version>
     </properties>
 
@@ -98,6 +98,7 @@
     </dependencies>
 
     <build>
+        <finalName>cidrlambda</finalName>
         <resources>
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
