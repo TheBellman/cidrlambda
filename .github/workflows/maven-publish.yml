@@ -44,4 +44,4 @@ jobs:
         aws-region: eu-west-2
 
     - name: Upload JAR to S3
-      run: aws s3 cp target/cidrlambda-*-shaded.jar s3://${{ vars.BUCKET }}/${{ github.event.release.tag_name }}/cidrlambda.jar
+      run: aws s3 cp target/cidrlambda-*-shaded.jar s3://${{ vars.BUCKET }}/cidrlambda/${{ github.event.release.tag_name }}/cidrlambda.jar
