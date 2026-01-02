@@ -5,8 +5,8 @@ behaviours around the tech stack. It provides a service wrapped around `iplib` t
 various AWS Services.
 
 ## Usage
-Really this only makes sense when deployed as a lambda behind a suitable API gateway configuration, which I will
-write up elsewhere. It will respond sensibly for three different call paths:
+Really this only makes sense when deployed as a lambda behind a suitable API gateway configuration,
+e.g. [cidrlambda](https://github.com/TheBellman/cidrlambda). It will respond sensibly for three different call paths:
 
  - `/v1/regions` - returns list of supported AWS regions
  - `/v1/services` - returns list of supported services
@@ -33,38 +33,38 @@ repository that contains the dependencies.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
-  <!-- https://maven.apache.org/settings.html -->
-  <activeProfiles>
-    <activeProfile>github</activeProfile>
-  </activeProfiles>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+    <!-- https://maven.apache.org/settings.html -->
+    <activeProfiles>
+        <activeProfile>github</activeProfile>
+    </activeProfiles>
 
-  <profiles>
-    <profile>
-      <id>github</id>
-      <repositories>
-        <repository>
-          <id>central</id>
-          <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/TheBellman/*</url>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo.maven.apache.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/TheBellman/*</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
-  <servers>
-    <server>
-      <id>github</id>
-      <username>YOUR_HANDLE</username>
-      <password>YOUR_TOKEN</password>
-    </server>
-  </servers>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>YOUR_HANDLE</username>
+            <password>YOUR_TOKEN</password>
+        </server>
+    </servers>
 
 </settings>
 ```
@@ -86,12 +86,26 @@ $ mvn clean package
 [INFO] ------------------------------------------------------------------------
 ```
 
-The built JAR will be available in `target` as `cidrlambda-1.1.0-shaded.jar`. This also bundles some javadoc into `target/cidrlambda-1.1.0-javadoc.jar`
+The built JAR will be available in `target` as `cidrlambda-???-shaded.jar`. This also bundles some javadoc into `target/cidrlambda-???-javadoc.jar`
+
+## Contributing
+This project is configured to use a pre-commit hook. Ideally, you should add this using either
+
+```shell
+brew install pre-commit
+pre-commit install
+```
+
+or
+```shell
+pip install pre-commit
+pre-commit install
+```
 
 
 ## License
 
-Copyright 2025 Little Dog Digital
+Copyright 2026 Little Dog Digital
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 
